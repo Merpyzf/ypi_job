@@ -73,8 +73,10 @@ def write_question2file(content_doc, num):
 
         file.write(str.encode('utf-8'))
 
-    except AttributeError as e:
+    except AttributeError, IOError:
         print('html页面解析遇到了点问题,sorry啦！请手动登录 O(∩_∩)O哈哈~')
+    finally:
+        file.close()
 
 
 # 主方法
@@ -105,7 +107,7 @@ def main(user_name, pwd):
 
 if __name__ == '__main__':
 
-    for n in range(1, 49):
+    for n in range(1, 50):
         user_id = '15053102'
         if n < 10:
             user_id = '150531020' + str(n)
