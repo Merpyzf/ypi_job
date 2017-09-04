@@ -2,6 +2,7 @@
 import requests
 import time
 from bs4 import BeautifulSoup
+import thread
 
 # 功能: python模拟浏览器进行浏览题目，领取积分，并且记录每日的题目和答案以便日后考试时寻找答案出处
 # version: 1.0
@@ -106,13 +107,19 @@ def main(user_name, pwd):
 
 
 if __name__ == '__main__':
+    while True:
+        current_time = time.localtime(time.time())
+        print '循环中……',str(current_time.tm_hour)
+        time.sleep(1)
+        # 早上八点钟进行登录
+        if ((current_time.tm_hour == 7) and (current_time.tm_min == 0) and (current_time.tm_sec == 0)):
+            for n in range(1, 50):
+                user_id = '15053102'
+                if n < 10:
+                    user_id = '150531020' + str(n)
+                else:
+                    user_id = user_id + str(n)
+                # 网站没有做防爬虫处理，不需要进行休眠
+                # time.sleep(1000)
+                main(user_id, user_id[4::])
 
-    for n in range(1, 50):
-        user_id = '15053102'
-        if n < 10:
-            user_id = '150531020' + str(n)
-        else:
-            user_id = user_id + str(n)
-        # 网站没有做防爬虫处理，不需要进行休眠
-        # time.sleep(1000)
-        main(user_id, user_id[4::])
